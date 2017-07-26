@@ -14,8 +14,8 @@ import android.widget.TextView;
  */
 
 public class Text3Fragment extends Fragment {
-    private Text3Fragment text1Fragment;
-    public Text3Fragment newInstance(Bundle bundle){
+    private static Text3Fragment text1Fragment;
+    public static Text3Fragment newInstance(Bundle bundle){
         if (text1Fragment == null){
             text1Fragment = new Text3Fragment();
         }
