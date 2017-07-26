@@ -13,32 +13,31 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <RadioGroup
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/rb_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
+        <RadioButton
             android:id="@+id/test1"
-            android:layout_weight="1"
-            android:text="测试1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            style="@style/bottom_stytle"
+            android:drawableTop="@drawable/home_bottom_bg"
+            android:text="测试1" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/test2"
-            android:layout_weight="1"
-            android:text="测试1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            style="@style/bottom_stytle"
+            android:drawableTop="@drawable/film_bottom_bg"
+            android:text="测试1" />
 
-        <TextView
+        <RadioButton
             android:id="@+id/test3"
-            android:layout_weight="1"
-            android:text="测试1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            style="@style/bottom_stytle"
+            android:drawableTop="@drawable/person_bottom_bg"
+            android:text="测试1" />
 
-    </LinearLayout>
-
+    </RadioGroup>
 </LinearLayout>

@@ -6,7 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.csjhecy.amuse.fragment.Text1Fragment;
 import com.csjhecy.amuse.fragment.Text2Fragment;
@@ -21,11 +22,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @BindView(R.id.fl_content)
     FrameLayout flContent;
     @BindView(R.id.test1)
-    TextView test1;
+    RadioButton test1;
     @BindView(R.id.test2)
-    TextView test2;
+    RadioButton test2;
     @BindView(R.id.test3)
-    TextView test3;
+    RadioButton test3;
+    @BindView(R.id.rb_group)
+    RadioGroup mRbGroup;
     private MainPresenter mainPresenter;
     private Text1Fragment mText1Fragment;
     private Text2Fragment mText2Fragment;
@@ -37,9 +40,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         mainPresenter = new MainPresenter(this, MainModel.getInstance());
         choiseFragment(0);
+        mRbGroup.check(R.id.test1);
     }
 
     private void choiseFragment(int position) {
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     addFragment(mText3Fragment);
                 }
                 mFragmentTransaction.show(mText3Fragment);
+
                 break;
         }
         mFragmentTransaction.commit();
@@ -107,5 +111,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (mText3Fragment != null) {
             mFragmentTransaction.hide(mText3Fragment);
         }
+
     }
 }
