@@ -18,6 +18,5 @@ public class MainPresenter extends MainContract.presenter {
     public void getData() {
 
 
-
     }
 }

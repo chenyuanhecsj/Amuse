@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.csjhecy.amuse.fragment.Text1Fragment;
+import com.csjhecy.amuse.episode.Text1Fragment;
 import com.csjhecy.amuse.fragment.Text2Fragment;
 import com.csjhecy.amuse.fragment.Text3Fragment;
 
@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mainPresenter = new MainPresenter(this, MainModel.getInstance());
         choiseFragment(0);
         mRbGroup.check(R.id.test1);
+
+
     }
 
     private void choiseFragment(int position) {
