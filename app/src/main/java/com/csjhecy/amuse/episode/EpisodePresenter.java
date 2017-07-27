@@ -23,13 +23,18 @@ public class EpisodePresenter extends BaseContract.presenter {
 
     }
 
-    public void getAnalyze() {
+    public void getAnalyze(String url) {
         mEpisodeView.showLoading(true);
-        mModel.doAnalaze();
+        mModel.doAnalaze(url);
     }
 
     public void getAnalyzeSucess(List<EpisodeBean> datas){
         mEpisodeView.showLoading(false);
-        mEpisodeView.showDatas(datas);
+        MyAdapter adapter = (MyAdapter) mEpisodeView.getRecyclerView().getAdapter();
+        if (adapter ==null){
+            mEpisodeView.showDatas(datas);
+        }else {
+           mEpisodeView.loadMore(datas);
+        }
     }
 }

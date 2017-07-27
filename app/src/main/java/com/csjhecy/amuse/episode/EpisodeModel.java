@@ -1,7 +1,6 @@
 package com.csjhecy.amuse.episode;
 
 import com.csjhecy.amuse.common.BaseContract;
-import com.csjhecy.amuse.common.Global;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,7 +30,7 @@ public class EpisodeModel implements BaseContract.Model {
     }
 
 
-    public void doAnalaze() {
+    public void doAnalaze(final String url) {
 
         DisposableObserver<List<EpisodeBean>> disposableObserver = Observable.create(new ObservableOnSubscribe<List<EpisodeBean>>() {
 
@@ -39,7 +38,7 @@ public class EpisodeModel implements BaseContract.Model {
             @Override
             public void subscribe(@NonNull ObservableEmitter<List<EpisodeBean>> e) throws Exception {
 
-                Document document = Jsoup.connect(Global.URl.ANALAZE_URL).get();
+                Document document = Jsoup.connect(url).get();
                 List<EpisodeBean> map = new ArrayList<EpisodeBean>();
                 EpisodeBean episodeBean;
 
@@ -49,7 +48,8 @@ public class EpisodeModel implements BaseContract.Model {
                 for (int i = 0; i < titleElements.size(); i++) {
                     episodeBean = new EpisodeBean();
                     episodeBean.setTitle(titleElements.get(i).text());
-                    episodeBean.setDesc(descriptionElements.get(i).text());
+
+                    episodeBean.setDesc(descriptionElements.get(i).text().replace("搜索 复制",""));
                     map.add(episodeBean);
                 }
 
@@ -76,5 +76,7 @@ public class EpisodeModel implements BaseContract.Model {
 
                     }
                 });
+
+        mEpisodePresenter.addSubscribe(disposableObserver);
     }
 }

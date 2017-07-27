@@ -1,5 +1,7 @@
 package com.csjhecy.amuse.common;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.csjhecy.amuse.common.impl.RxPresenter;
 
 import java.util.List;
@@ -17,6 +19,10 @@ public interface BaseContract {
         void showDatas(List datas);
 
         void showLoading(boolean show);
+
+        RecyclerView getRecyclerView();
+
+        void loadMore(List datas);
     }
 
     /**

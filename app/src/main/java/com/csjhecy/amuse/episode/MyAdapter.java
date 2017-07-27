@@ -53,4 +53,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
             ButterKnife.bind(this,itemView);
         }
     }
+
+    public void addMoreList(List<EpisodeBean> datas){
+        int itemCount = getItemCount();
+        this.datas.addAll(datas);
+        notifyItemRangeInserted(itemCount,datas.size());
+    }
 }
