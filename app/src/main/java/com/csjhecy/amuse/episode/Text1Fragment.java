@@ -75,7 +75,9 @@ public class Text1Fragment extends Fragment implements BaseContract.View, OnRefr
         mEpisodePresenter.getAnalyze(Global.URl.ANALAZE_URL);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadmoreListener(this);
-        mRefreshLayout.setRefreshHeader(new CircleHeader(getActivity()));
+        CircleHeader circleHeader = new CircleHeader(getActivity());
+        circleHeader.setPrimaryColors(getResources().getColor(R.color.colorPrimaryDark));
+        mRefreshLayout.setRefreshHeader(circleHeader);
         return view;
     }
 
