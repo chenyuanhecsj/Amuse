@@ -30,7 +30,7 @@ import butterknife.Unbinder;
  * Created by Admin on 2017/7/25.
  */
 
-public class Text1Fragment extends Fragment implements BaseContract.View,OnRefreshListener,OnLoadmoreListener {
+public class Text1Fragment extends Fragment implements BaseContract.View, OnRefreshListener, OnLoadmoreListener {
     private static Text1Fragment text1Fragment;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -43,6 +43,15 @@ public class Text1Fragment extends Fragment implements BaseContract.View,OnRefre
     private MyAdapter mMyAdapter;
 
     private static int nextPage = 1;
+
+
+    public static final int STATUS_NORMAL = 1000;
+    public static final int STATUS_REFRESHING = 1001;
+    public static final int STATUS_LOADMORE = 1002;
+    /**
+     * 刷新状态
+     */
+    public static int STATE = STATUS_NORMAL;
 
     public static Text1Fragment newInstance(Bundle bundle) {
         if (text1Fragment == null) {
@@ -72,9 +81,24 @@ public class Text1Fragment extends Fragment implements BaseContract.View,OnRefre
 
     @Override
     public void showDatas(List datas) {
-        mMyAdapter = new MyAdapter(datas);
-        mRecyclerView.setAdapter(mMyAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        switch (STATE){
+            case STATUS_NORMAL:
+                mMyAdapter = new MyAdapter(datas);
+                mRecyclerView.setAdapter(mMyAdapter);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                break;
+            case STATUS_REFRESHING:
+                mMyAdapter.getDatas().clear();
+                mMyAdapter.setDatas(datas);
+                mMyAdapter.notifyDataSetChanged();
+                mRecyclerView.smoothScrollToPosition(0);
+                mRefreshLayout.finishRefresh();
+                break;
+            case STATUS_LOADMORE:
+                mMyAdapter.addMoreList(datas);
+                mRefreshLayout.finishLoadmore();
+                break;
+        }
     }
 
     @Override
@@ -88,16 +112,6 @@ public class Text1Fragment extends Fragment implements BaseContract.View,OnRefre
         }
     }
 
-    @Override
-    public RecyclerView getRecyclerView() {
-        return mRecyclerView;
-    }
-
-    @Override
-    public void loadMore(List datas) {
-        mMyAdapter.addMoreList(datas);
-    }
-
 
     @Override
     public void onDestroyView() {
@@ -108,18 +122,18 @@ public class Text1Fragment extends Fragment implements BaseContract.View,OnRefre
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        mRefreshLayout.finishRefresh(2000);
+       STATE = STATUS_REFRESHING;
+        mEpisodePresenter.getAnalyze(Global.URl.ANALAZE_URL);
     }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
-        nextPage = nextPage +1;
-        if (nextPage<=5){
-            mEpisodePresenter.getAnalyze(Global.URl.ANALAZE_URL1+nextPage+".html");
+        nextPage = nextPage + 1;
+        if (nextPage <= 5) {
+            STATE = STATUS_LOADMORE;
+            mEpisodePresenter.getAnalyze(Global.URl.ANALAZE_URL1 + nextPage + ".html");
         } else {
-            Toast.makeText(getActivity(),"已是最后一页啦！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "已是最后一页啦！", Toast.LENGTH_SHORT).show();
         }
-
-        mRefreshLayout.finishLoadmore();
     }
 }

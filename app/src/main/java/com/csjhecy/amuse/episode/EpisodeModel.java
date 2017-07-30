@@ -48,7 +48,6 @@ public class EpisodeModel implements BaseContract.Model {
                 for (int i = 0; i < titleElements.size(); i++) {
                     episodeBean = new EpisodeBean();
                     episodeBean.setTitle(titleElements.get(i).text());
-
                     episodeBean.setDesc(descriptionElements.get(i).text().replace("搜索 复制",""));
                     map.add(episodeBean);
                 }

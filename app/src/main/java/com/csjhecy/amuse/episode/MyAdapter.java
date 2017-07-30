@@ -59,4 +59,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
         this.datas.addAll(datas);
         notifyItemRangeInserted(itemCount,datas.size());
     }
+
+    public List<EpisodeBean> getDatas() {
+        return datas;
+    }
+
+    public void setDatas(List<EpisodeBean> datas) {
+        this.datas = datas;
+    }
 }

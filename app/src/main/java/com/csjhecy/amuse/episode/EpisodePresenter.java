@@ -30,11 +30,6 @@ public class EpisodePresenter extends BaseContract.presenter {
 
     public void getAnalyzeSucess(List<EpisodeBean> datas){
         mEpisodeView.showLoading(false);
-        MyAdapter adapter = (MyAdapter) mEpisodeView.getRecyclerView().getAdapter();
-        if (adapter ==null){
-            mEpisodeView.showDatas(datas);
-        }else {
-           mEpisodeView.loadMore(datas);
-        }
+        mEpisodeView.showDatas(datas);
     }
 }
